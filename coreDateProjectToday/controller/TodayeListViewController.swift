@@ -10,14 +10,30 @@ import UIKit
 
 class TodayeListViewController : UITableViewController  {
 
-    var arrayItem = ["Buy item","youssef","mohammed"]
+    var arrayItem = [item]()
     
     let defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let items = defaults.stringArray(forKey: "TodayList"){
+        
+        
+        let items = item()
+        items.title = "youssef"
+        self.arrayItem.append(items)
+        
+        let items2 = item()
+        items2.title = "yosef"
+        self.arrayItem.append(items2)
+        
+        let items3 = item()
+        items3.title = "yo"
+        self.arrayItem.append(items3)
+        
+        
+        if let items = defaults.object(forKey: "TodayList") as? [item]{
             arrayItem = items
         }
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -26,18 +42,21 @@ class TodayeListViewController : UITableViewController  {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodayeListViewController", for: indexPath)
-        cell.textLabel?.text = arrayItem[indexPath.row]
+        
+        let item = arrayItem[indexPath.row]
+        cell.textLabel?.text = item.title
+        
+        cell.accessoryType = item.done ? .checkmark : .none
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        }else{
-            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        }
         
+        self.arrayItem[indexPath.row].done = !self.arrayItem[indexPath.row].done
+           
+        
+        self.tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
@@ -47,7 +66,9 @@ class TodayeListViewController : UITableViewController  {
         let alert = UIAlertController(title: "Add new item", message: "", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Add Item", style: .default, handler: { (action) in
         
-            self.arrayItem.append(textField.text!)
+            let items = item()
+            items.title = textField.text!
+            self.arrayItem.append(items)
             self.defaults.setValue(self.arrayItem, forKey: "TodayList")
             
             
