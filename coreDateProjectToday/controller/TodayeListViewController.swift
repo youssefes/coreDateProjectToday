@@ -11,28 +11,18 @@ import UIKit
 class TodayeListViewController : UITableViewController  {
 
     var arrayItem = [item]()
+    let datafilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("items.plist")
     
     let defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        let items = item()
-        items.title = "youssef"
-        self.arrayItem.append(items)
-        
-        let items2 = item()
-        items2.title = "yosef"
-        self.arrayItem.append(items2)
-        
-        let items3 = item()
-        items3.title = "yo"
-        self.arrayItem.append(items3)
+        leadItem()
         
         
-        if let items = defaults.object(forKey: "TodayList") as? [item]{
-            arrayItem = items
-        }
+//        if let items = defaults.object(forKey: "TodayList") as? [item]{
+//            arrayItem = items
+//        }
         
     }
     
@@ -54,9 +44,7 @@ class TodayeListViewController : UITableViewController  {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         self.arrayItem[indexPath.row].done = !self.arrayItem[indexPath.row].done
-           
-        
-        self.tableView.reloadData()
+        saveItem()
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
@@ -69,10 +57,12 @@ class TodayeListViewController : UITableViewController  {
             let items = item()
             items.title = textField.text!
             self.arrayItem.append(items)
-            self.defaults.setValue(self.arrayItem, forKey: "TodayList")
+            
+            self.saveItem()
+//            self.defaults.setValue(self.arrayItem, forKey: "TodayList")
             
             
-            self.tableView.reloadData()
+            
         }))
         
         alert.addTextField { (alertTextfield) in
@@ -80,6 +70,31 @@ class TodayeListViewController : UITableViewController  {
             textField = alertTextfield
         }
         present(alert, animated: true, completion: nil)
+    }
+    
+    func saveItem(){
+        let encoder = PropertyListEncoder()
+        
+        do{
+            let data = try encoder.encode(arrayItem)
+            try data.write(to: datafilePath!)
+        }catch{
+            print("\(error)")
+        }
+        
+        self.tableView.reloadData()
+    }
+    
+    func leadItem()  {
+        if let data = try? Data(contentsOf: datafilePath!){
+            let decoder = PropertyListDecoder()
+            do{
+               arrayItem = try decoder.decode([item].self, from: data)
+                
+            }catch{
+                
+            }
+        }
     }
     
 }
