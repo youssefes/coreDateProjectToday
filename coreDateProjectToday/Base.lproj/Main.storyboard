@@ -31,7 +31,14 @@
                             <outlet property="delegate" destination="xfz-zZ-NBD" id="jVe-qG-wiN"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="todaye" id="Lfk-Pl-gfp"/>
+                    <navigationItem key="navigationItem" title="todaye" id="Lfk-Pl-gfp">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="BtE-Eq-qE0">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addnewItem:" destination="xfz-zZ-NBD" id="NN1-to-orl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cGd-3y-3sR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

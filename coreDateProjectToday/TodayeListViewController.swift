@@ -10,10 +10,14 @@ import UIKit
 
 class TodayeListViewController : UITableViewController  {
 
-    let arrayItem = ["Buy item","youssef","mohammed"]
+    var arrayItem = ["Buy item","youssef","mohammed"]
+    
+    let defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        if let items = defaults.stringArray(forKey: "TodayList"){
+            arrayItem = items
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -37,6 +41,25 @@ class TodayeListViewController : UITableViewController  {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
-
+    @IBAction func addnewItem(_ sender: UIBarButtonItem) {
+        
+        var textField = UITextField()
+        let alert = UIAlertController(title: "Add new item", message: "", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Add Item", style: .default, handler: { (action) in
+        
+            self.arrayItem.append(textField.text!)
+            self.defaults.setValue(self.arrayItem, forKey: "TodayList")
+            
+            
+            self.tableView.reloadData()
+        }))
+        
+        alert.addTextField { (alertTextfield) in
+            alertTextfield.placeholder = "add New Item "
+            textField = alertTextfield
+        }
+        present(alert, animated: true, completion: nil)
+    }
+    
 }
 
