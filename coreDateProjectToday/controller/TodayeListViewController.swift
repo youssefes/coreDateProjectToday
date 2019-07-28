@@ -7,23 +7,24 @@
 //
 
 import UIKit
+import CoreData
 
 class TodayeListViewController : UITableViewController  {
 
-    var arrayItem = [item]()
+    var arrayItem = [Item]()
     let datafilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("items.plist")
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     let defaults = UserDefaults.standard
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         leadItem()
-        
-        
-//        if let items = defaults.object(forKey: "TodayList") as? [item]{
-//            arrayItem = items
-//        }
-        
+
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -54,15 +55,13 @@ class TodayeListViewController : UITableViewController  {
         let alert = UIAlertController(title: "Add new item", message: "", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Add Item", style: .default, handler: { (action) in
         
-            let items = item()
-            items.title = textField.text!
+            
+            let items = Item(context: self.context)
+            items.title = textField.text
+            items.done = false
             self.arrayItem.append(items)
             
             self.saveItem()
-//            self.defaults.setValue(self.arrayItem, forKey: "TodayList")
-            
-            
-            
         }))
         
         alert.addTextField { (alertTextfield) in
@@ -73,11 +72,10 @@ class TodayeListViewController : UITableViewController  {
     }
     
     func saveItem(){
-        let encoder = PropertyListEncoder()
+        
         
         do{
-            let data = try encoder.encode(arrayItem)
-            try data.write(to: datafilePath!)
+            try context.save()
         }catch{
             print("\(error)")
         }
@@ -86,14 +84,13 @@ class TodayeListViewController : UITableViewController  {
     }
     
     func leadItem()  {
-        if let data = try? Data(contentsOf: datafilePath!){
-            let decoder = PropertyListDecoder()
-            do{
-               arrayItem = try decoder.decode([item].self, from: data)
-                
-            }catch{
-                
-            }
+    
+        let request : NSFetchRequest<Item> = Item.fetchRequest()
+        
+        do{
+            arrayItem = try context.fetch(request)
+        }catch{
+            print(error)
         }
     }
     
