@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		670827C022EDAF87007C2358 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 670827BE22EDAF87007C2358 /* DataModel.xcdatamodeld */; };
+		67340F9A22F1AB6B0026F39B /* catagoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67340F9922F1AB6B0026F39B /* catagoresViewController.swift */; };
 		6775458D22EC83DD00379CBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6775458C22EC83DD00379CBA /* AppDelegate.swift */; };
 		6775458F22EC83DD00379CBA /* TodayeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6775458E22EC83DD00379CBA /* TodayeListViewController.swift */; };
 		6775459222EC83DD00379CBA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6775459022EC83DD00379CBA /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		670827BF22EDAF87007C2358 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		67340F9922F1AB6B0026F39B /* catagoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = catagoresViewController.swift; sourceTree = "<group>"; };
 		6775458922EC83DD00379CBA /* coreDateProjectToday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coreDateProjectToday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6775458C22EC83DD00379CBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6775458E22EC83DD00379CBA /* TodayeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayeListViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				6775458E22EC83DD00379CBA /* TodayeListViewController.swift */,
+				67340F9922F1AB6B0026F39B /* catagoresViewController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -168,6 +171,7 @@
 				6775458F22EC83DD00379CBA /* TodayeListViewController.swift in Sources */,
 				670827C022EDAF87007C2358 /* DataModel.xcdatamodeld in Sources */,
 				6775459F22ED097600379CBA /* Item.swift in Sources */,
+				67340F9A22F1AB6B0026F39B /* catagoresViewController.swift in Sources */,
 				6775458D22EC83DD00379CBA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
